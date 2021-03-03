@@ -16,7 +16,7 @@ class opts(object):
         self.parser.add_argument('--exp_id', default='default')
         self.parser.add_argument('--test', action='store_true')
         self.parser.add_argument('--load_model',
-                                 default='../exp/mot/default/mcmot_last_track_resdcn_18.pth',
+                                 default='../exp/mot/default/mcmot_last_track_resdcn_18_visdrone.pth',
                                  help='path to pretrained model')
         self.parser.add_argument('--resume',
                                  action='store_true',
@@ -171,7 +171,7 @@ class opts(object):
                                  help='tracking buffer')
         self.parser.add_argument('--min-box-area',
                                  type=float,
-                                 default=200,
+                                 default=100,
                                  help='filter out tiny boxes')
 
         # 测试阶段的输入数据模式: video or image dir
@@ -183,7 +183,7 @@ class opts(object):
         # 输入的video文件路径
         self.parser.add_argument('--input-video',
                                  type=str,
-                                 default='../videos/test5.mp4',
+                                 default='../videos/uav_339.mp4',
                                  help='path to the input video')
 
         # 输入的image目录
@@ -202,12 +202,12 @@ class opts(object):
                                  help='expected output root path')
 
         # mot: 选择数据集的配置文件
-        self.parser.add_argument('--data_cfg', type=str,
-                                 default='../src/lib/cfg/mcmot_det.json',  # 'mot15.json', 'visdrone.json'
-                                 help='load data from cfg')
         # self.parser.add_argument('--data_cfg', type=str,
-        #                          default='../src/lib/cfg/mcmot_det.json',  # mcmot.json, mcmot_det.json,
+        #                          default='../src/lib/cfg/visdrone.json',  # 'mcmot_det.json', 'visdrone.json'
         #                          help='load data from cfg')
+        self.parser.add_argument('--data_cfg', type=str,
+                                 default='../src/lib/cfg/mcmot.json',  # mcmot.json, mcmot_det.json,
+                                 help='load data from cfg')
         self.parser.add_argument('--data_dir',
                                  type=str,
                                  default='/mnt/diskb/even/dataset')
@@ -237,7 +237,7 @@ class opts(object):
                                  help='reid loss: ce | triplet')
         self.parser.add_argument('--id_weight',
                                  type=float,
-                                 default=1,  # 0for detection only and 1 for detection and re-ida
+                                 default=1,  # 0 for detection only and 1 for detection and re-id
                                  help='loss weight for id')  # ReID feature extraction or not
         self.parser.add_argument('--reid_dim',
                                  type=int,
@@ -267,7 +267,7 @@ class opts(object):
 
         # others          (11)
         self.parser.add_argument('--reid_cls_ids',
-                                 default='0,1,2,3,4',  # '0,1,2,3,4' or '0,1,2,3,4,5,6,7,8,9'
+                                 default='0,1,2,3,4,5,6,7,8,9',  # '0,1,2,3,4' or '0,1,2,3,4,5,6,7,8,9'
                                  help='')  # the object classes need to do reid
 
         self.parser.add_argument('--norm_wh', action='store_true',
